@@ -1,5 +1,8 @@
 123
 Commit 2: new row is added!
 
-Commit 3: we changed 2 rows in the code.
+Commit 3: deleted 
 Commit 4: to verify hot works "git add -u"
+Commit 5: commit 3 deleted
+
+11 commit : branch feature1 added
