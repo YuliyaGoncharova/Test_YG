@@ -6,3 +6,5 @@ Commit 4: to verify hot works "git add -u"
 Commit 5: commit 3 deleted
 
 11 commit : branch feature1 added
+
+13 commit in feature2 branch
