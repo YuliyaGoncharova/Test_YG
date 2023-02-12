@@ -7,4 +7,10 @@ Commit 5: commit 3 deleted
 
 11 commit : branch feature1 added
 
+
 12 commit : changes are made in feature3
+
+13 commit in feature2 branch
+
+14 commit : branch conflict resolved
+
