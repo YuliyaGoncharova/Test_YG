@@ -1,0 +1,5 @@
+123
+Commit 2: new row is added!
+
+Commit 3: we changed 2 rows in the code.
+Commit 4: to verify hot works "git add -u"
