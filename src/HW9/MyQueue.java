@@ -6,23 +6,20 @@ public class MyQueue<E> {
 
     private Object[] queueArray = new Object[10];
 
-    int sizeOfQueue = 0;
-
-
 
     //    add(Object value) додає елемент в кінець
     public void add(E addedElement) {
         if (addedElement == null) return;
 
         increasingArrayVolume();
-        queueArray[sizeOfQueue] = addedElement;
-        sizeOfQueue++;
+        queueArray[this.size()] = addedElement;
+
 
     }
 
     private void increasingArrayVolume() {
-        if (queueArray.length - 1 == sizeOfQueue) {
-            queueArray =  Arrays.copyOf(queueArray, queueArray.length + 1);
+        if (queueArray.length - 1 == this.size()) {
+            queueArray =  Arrays.copyOf(queueArray, queueArray.length + 3);
         }
     }
 
