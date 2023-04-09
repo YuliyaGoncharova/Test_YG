@@ -7,30 +7,23 @@ public class MyStack<E> {
 
     private Object[] stackArray = new Object[10];
 
-//    int sizeOfStack = 0;
-
-
-
     //    add(Object value) реалізувати ЛІФО
 //    to verify if array[0] != null
 //    if null, we can write new value to array[0]
 //    if array[0] != null, then [0} to [1], [1] -> [2] etc. Then write new value to [0];
 //    public void addToCreateStack(E addedElement) {
-    public void add(E addedElement) {
-//        if (addedElement == null) return;
+    public void push(E addedElement) {
+        if (addedElement == null) return;
         increasingArrayVolume();
 
             for (int i = stackArray.length - 1; i > 0; i--) {
                 stackArray[i] = stackArray[i - 1];
             }
             stackArray[0] = addedElement;
-//        }
 
-//        sizeOfStack++;
     }
 
     private void increasingArrayVolume() {
-//        if (stackArray.length - 1 == sizeOfStack) {
         if (stackArray.length - 1 == this.size()) {
             stackArray =  Arrays.copyOf(stackArray, stackArray.length + 3);
         }
@@ -39,26 +32,26 @@ public class MyStack<E> {
 
     //    push(Object value) додає елемент в кінець
 
-    public void push(E value) {
-//        if (value == null) return;
-////        для варіанта коли не може бути пустих елементів всередині
+//    public void push(E value) {
+////        if (value == null) return;
+//////        для варіанта коли не може бути пустих елементів всередині
+////        increasingArrayVolume();
+////        stackArray[this.size()] = value;
+//
+// //        для варіанта коли можуть  бути пусті елементи всередині
+//
 //        increasingArrayVolume();
-//        stackArray[this.size()] = value;
-
- //        для варіанта коли можуть  бути пусті елементи всередині
-
-        increasingArrayVolume();
-        int indexForNotNullEl = this.size();
-        for (int i = this.size(); i > 0; i--) {
-            if(stackArray[i] != null) {
-                indexForNotNullEl = i;
-                break;
-            }
-
-        }
-        stackArray[indexForNotNullEl + 1] = value;
-
-    }
+//        int indexForNotNullEl = this.size();
+//        for (int i = this.size(); i > 0; i--) {
+//            if(stackArray[i] != null) {
+//                indexForNotNullEl = i;
+//                break;
+//            }
+//
+//        }
+//        stackArray[indexForNotNullEl + 1] = value;
+//
+//    }
 
 
 //remove(int index) видаляє елемент за індексом

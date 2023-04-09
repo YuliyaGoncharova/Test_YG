@@ -1,5 +1,8 @@
 package HW9;
 
+import HW9.MyHashMapPack.MyHashMap;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -10,12 +13,65 @@ public class TestStarter {
 //    myArrTest();
 //    myLinkedListTest();
 //        myQueueTest();
-        myStackTest();
+//        myStackTest();
+        myHashMapTest();
 
     }
 
+    public static void myHashMapTest() {
+        MyHashMap<String, String> myHM = new MyHashMap<>();
+
+        myHM.put("Alex", "some info");
+        myHM.put("Ulka", "birthday is 21.06.1978");
+        myHM.put("22", "34");
+
+        System.out.println(myHM);
+
+        System.out.println(myHM.get("Ulka"));
+        System.out.println(myHM.size());
+        myHM.clear();
+        System.out.println(myHM);
+    }
+
+
 //    public static void myArrTest()
 //    public static void myQueueTest()
+//     {
+//
+////        MyArrayList<String> myArr = new MyArrayList<>();
+////        MyQueue<String> myArr = new MyQueue<>();
+//     myArr.add("yg1");
+//        myArr.add("yg2");
+////        myArr.add("yg3");
+//        myArr.add(null);
+//        myArr.add("yg4");
+//        myArr.add("yg5");
+//        myArr.add("yg6");
+//        myArr.add("yg");
+//        myArr.add("yg8");
+//        myArr.add("yg");
+//        myArr.add("yg10");
+//        myArr.add("yg11");
+//        myArr.add("yg12");
+//        myArr.add("yg13");
+//        myArr.add("yg14");
+//        myArr.add("yg15");
+//
+//        System.out.println(myArr);
+////        System.out.println(myArr.peek());
+//        System.out.println(myArr.poll());
+
+
+//        System.out.println(myArr.size());
+
+//        System.out.println(myArr.get(4));
+
+//        myArr.remove(4);
+
+//        System.out.println(myArr);
+
+//}
+
     public static void myStackTest()
     {
 
@@ -24,22 +80,23 @@ public class TestStarter {
         MyStack<String> myArr = new MyStack<>();
 
 
-        myArr.add("yg1");
-        myArr.add("yg2");
+
+        myArr.push("yg1");
+        myArr.push("yg2");
 //        myArr.add("yg3");
-        myArr.add(null);
-        myArr.add("yg4");
-        myArr.add("yg5");
-        myArr.add("yg6");
-        myArr.add("yg");
-        myArr.add("yg8");
-        myArr.add("yg");
-        myArr.add("yg10");
-        myArr.add("yg11");
-        myArr.add("yg12");
-        myArr.add("yg13");
-        myArr.add("yg14");
-        myArr.add("yg15");
+        myArr.push(null);
+        myArr.push("yg4");
+        myArr.push("yg5");
+        myArr.push("yg6");
+        myArr.push("yg");
+        myArr.push("yg8");
+        myArr.push("yg");
+        myArr.push("yg10");
+        myArr.push("yg11");
+        myArr.push("yg12");
+        myArr.push("yg13");
+        myArr.push("yg14");
+        myArr.push("yg15");
 
         System.out.println(myArr);
 //        System.out.println(myArr.peek());
@@ -64,7 +121,7 @@ public class TestStarter {
 
 //        myArr.clear();
 //
-        myArr.add("yg44");
+        myArr.push("yg44");
         System.out.println(myArr);
 
         System.out.println(myArr.size());
