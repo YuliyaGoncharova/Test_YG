@@ -29,7 +29,9 @@ public class SortedNumbers {
         List<String> operated =  numberStart.stream()
                 .map(s -> s.split(", "))
                 .flatMap(Arrays::stream)
+                .map(s -> Integer.parseInt(s))
                 .sorted()
+                .map(s -> String.valueOf(s))
                 .collect(Collectors.toList());
 
         return operated;
@@ -49,6 +51,7 @@ public class SortedNumbers {
 
 
         SortedNumbers sn = new SortedNumbers(Arrays.asList("1, 2, 0", "4, 5"));
+//        SortedNumbers sn = new SortedNumbers(Arrays.asList("1, 20, 10", "4, 5", "13, 24, 9"));
 
         System.out.println("sorted numbers are: " + sn.sortNumbersFromArray());
 //        sn.listSortedToConsole();
