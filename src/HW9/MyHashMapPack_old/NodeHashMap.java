@@ -1,6 +1,4 @@
-package HW9.MyHashMapPack;
-
-import HW9.Node;
+package HW9.MyHashMapPack_old;
 
 public class NodeHashMap <K, V> {
 

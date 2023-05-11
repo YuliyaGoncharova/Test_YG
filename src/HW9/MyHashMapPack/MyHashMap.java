@@ -1,66 +1,194 @@
 package HW9.MyHashMapPack;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-import java.util.Arrays;
+public class MyHashMap <K, V> {
 
-public class MyHashMap<K, V> {
+    private  Node<K,V> [] array;//Масив в якому будуть зберігатися списки елементів мапи
+    private int size;//Змінна що зберігає розмір мапи
+    private static final float LOAD_FACTOR = 0.75f;
+    private int limit;
 
-    private NodeHashMap<K, V>[] hashMapArray = new NodeHashMap[10];
+    private int length;
 
-    public void put(K key, V value) {
-        increasingArrayVolume(key);
-        int index = key.hashCode();
-
-        hashMapArray[index] = new NodeHashMap(key, value);
+    public MyHashMap(){
+        length = 16;
+        array = new Node[length];
+        limit = (int)(length * 8 * LOAD_FACTOR);
     }
 
-    private void increasingArrayVolume(K key) {
-        int arrayLength = hashMapArray.length;
-        int index;
-        index = key.hashCode() + 1;
-        if (arrayLength - 1 < index) {
-            hashMapArray =  Arrays.copyOf(hashMapArray, index);
+    /*
+    Вкладений клас для зберігання значень елементів мапи та організації їх збереження у вигляді однозв'язного списку
+     */
+    static class Node<K,V>{
+        private final int hash;
+        private final K key;
+        private V value;
+        private Node<K,V> next;
+
+        public Node(K key, V value){
+            this.key = key;
+            this.value = value;
+            hash = Objects.hashCode(key);
         }
     }
 
-    public void clear() {
-        this.hashMapArray = new NodeHashMap[10];
+    private void resize(){
+        if(size < limit){
+            return;
+        }
+        length = length*2;
+        limit = (int) (length * 8 * LOAD_FACTOR);
+        Node <K,V> []arrayCopy = array;
+        array = new Node[length];
+        for (Node<K,V> node : arrayCopy){
+            Node<K, V> forCopy = node;
+            while (forCopy != null){
+                Node<K, V> add = new Node<>(forCopy.key,forCopy.value);
+                addNode(add);
+                forCopy = forCopy.next;
+            }
+
+        }
     }
 
+    /*
+    Службовий метод, що використовується для розрахунку індексу масиву, в який буде покладено елемент
+     */
+    private int calcIndex(K key){
+        return Objects.hashCode(key) & length-1;
+    }
 
-    public int size() {
-        int size = 0;
+    /*
+    Службовий метод, що використовується для додавання елементу мапи, без перевірки на дублювання ключів
+     */
+    private void addNode(Node<K,V> node){
+        int index = calcIndex(node.key);
+        if (array[index] == null){
+            array[index] = node;
+        }else {
+            Node<K, V> current = array[index];
+            while (current.next != null){
+                current = current.next;
+            }
+            current.next = node;
+        }
 
-        for (Object elem:
-                hashMapArray) {
-            if (elem != null) {
-                size++;
+    }
 
+    /*
+    Службовий метод, що використовується для пошуку елементу мапи за ключем, якщо елементу
+    з відповідним ключем в мапі немає, буде повернено null
+     */
+    private Node <K,V> getNode(K key){
+        int index = calcIndex(key);
+        if (array[index] != null){
+            Node <K,V> current = array[index];
+            while (true){
+                if(current.hash == Objects.hashCode(key) && key.equals(current.key)){
+                    return current;
+                }
+                if (current.next == null) break;
+                current = current.next;
             }
         }
+        return null;
+    }
+
+    /*
+    Метод для додавання елементів в мапу
+     */
+
+    public void put(K key, V value){
+        resize();
+        Node <K, V> newElement = new Node<>(key, value);
+
+        /*нода для перевірки чи існує в мапі елемент з ідентичним ключем, посилається на елемент мапи,
+        якщо існує і null, якщо ні
+         */
+        Node <K, V> checkNode = getNode(key);
+        if(checkNode != null){// якщо елемент з ідентичним ключем вже міститься, перезаписуємо значення
+            checkNode.value = value;
+            return;
+        }
+        addNode(newElement);
+        size++;
+    }
+
+    /*
+    Метод для видалення елементів з мапи
+     */
+
+    public void remove(K key){
+        int index = calcIndex(key);
+        Node<K, V> beforeRemove = array[index];
+        if(beforeRemove == null) {//перевіряємо чи не пустий елемент масиву, який має містити відповідний ключ
+            return;
+        }
+        if (beforeRemove.key.equals(key)){//якщо потрібний елемент є першим в списку
+            array[index] = beforeRemove.next;
+            size--;
+            return;
+        }
+        while (beforeRemove.next != null){//пошук елемента що передує елементу з відповідним ключем, якщо попередні умови не виконалися
+            if (beforeRemove.next.key.equals(key)){
+                beforeRemove.next = beforeRemove.next.next;
+                size--;
+                return;
+            }
+            beforeRemove = beforeRemove.next;
+        }
+
+    }
+
+    /*
+    Метод для очищення мапи
+     */
+
+    public void clear(){
+        length = 16;
+        array = new Node[length];
+        limit = (int)(length * 8 * LOAD_FACTOR);
+        size = 0;
+    }
+
+    /*
+    Метод що повертає розмір мапи
+     */
+
+    public int size(){
         return size;
     }
 
+    /*
+    Метод для отримання значення за ключем
+     */
 
-//remove(Object key) видаляє пару за ключем
-
-public void remove(K key) {
-        int index = key.hashCode();
-        hashMapArray[index] = null;
-
-}
-//get(Object key) повертає значення (Object value) за ключем
-
-    public V get(K key) {
-        int index = key.hashCode();
-        return hashMapArray[index].value;
+    public V get(K key){
+        Node <K, V> desired  = getNode(key);
+        if (desired != null){
+            return desired.value;
+        }
+        return null;
     }
 
-
-    @Override
-    public String toString() {
-        return
-                "MyHashMap{" +
-                "hashMapArray=" + Arrays.toString(hashMapArray) +
-                '}';
+    public String toString(){
+        StringJoiner sj = new StringJoiner(", ");
+        int index = 0;
+        for (Node<K,V> node : array){
+            sj.add("\n" + index++ + ")\n" );
+            if (node == null) {
+                continue;
+            }
+            Node <K, V> current = node;
+            sj.add(current.key +" - " + current.value);
+            while (current.next != null){
+                current = current.next;
+                sj.add(current.key +" - " + current.value);
+            }
+        }
+        return "[" + sj + "]";
     }
 }
+
+
