@@ -2,9 +2,6 @@ package HW9;
 
 import HW9.MyHashMapPack.MyHashMap;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class TestStarter {
 
@@ -24,13 +21,21 @@ public class TestStarter {
         myHM.put("Alex", "some info");
         myHM.put("Ulka", "birthday is 21.06.1978");
         myHM.put("22", "34");
+        myHM.put("Ella", "Gdansk");
 
         System.out.println(myHM);
 
         System.out.println(myHM.get("Ulka"));
-        System.out.println(myHM.size());
+        System.out.println("_______________");
+        System.out.println("My HashMap Size = " + myHM.size());
+        System.out.println("_______________");
+
         myHM.clear();
         System.out.println(myHM);
+        System.out.println("_______________");
+        System.out.println("My HashMap Size after clearing = " + myHM.size());
+
+
     }
 
 
@@ -142,26 +147,28 @@ public class TestStarter {
 //        myLL.add(null);
         myLL.add("yg3");
         myLL.add("yg4");
-        myLL.add("yg5");
-        myLL.add("yg6");
-        myLL.add("yg7");
-        myLL.add("yg8");
-        myLL.add("yg9");
-        myLL.add("yg10");
-        myLL.add("yg11");
-        myLL.add("yg12");
-        myLL.add("yg13");
-        myLL.add("yg14");
-        myLL.add("yg15");
+//        myLL.add("yg5");
+//        myLL.add("yg6");
+//        myLL.add("yg7");
+//        myLL.add("yg8");
+//        myLL.add("yg9");
+//        myLL.add("yg10");
+//        myLL.add("yg11");
+//        myLL.add("yg12");
+//        myLL.add("yg13");
+//        myLL.add("yg14");
+//        myLL.add("yg15");
 
 //        System.out.println(myArr.size());
 
-        System.out.println(myLL.getNodeByIndex(11));
+        System.out.println(myLL.getNodeByIndex(3));
         System.out.println(myLL);
+        myLL.remove(2);
 
 //        myLL.clear();
 
-        myLL.remove(11);
+//        myLL.remove(11);
+
 
         System.out.println(myLL);
 

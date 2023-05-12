@@ -76,7 +76,7 @@ public class MyLinkedList<T> {
     public Node<T> getNodeByIndex(int index) {
         Node<T> item = first;
         int counter = 0;
-        while (item.getNext() != null) {
+        while (item != null) {
             if ( counter == index) {
                 return item;
             }

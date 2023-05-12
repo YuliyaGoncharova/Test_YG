@@ -4,8 +4,8 @@ import java.util.StringJoiner;
 
 public class MyHashMap <K, V> {
 
-    private  Node<K,V> [] array;//Масив в якому будуть зберігатися списки елементів мапи
-    private int size;//Змінна що зберігає розмір мапи
+    private  Node<K,V> [] array;
+    private int size;
     private static final float LOAD_FACTOR = 0.75f;
     private int limit;
 
@@ -17,9 +17,7 @@ public class MyHashMap <K, V> {
         limit = (int)(length * 8 * LOAD_FACTOR);
     }
 
-    /*
-    Вкладений клас для зберігання значень елементів мапи та організації їх збереження у вигляді однозв'язного списку
-     */
+
     static class Node<K,V>{
         private final int hash;
         private final K key;
@@ -52,16 +50,12 @@ public class MyHashMap <K, V> {
         }
     }
 
-    /*
-    Службовий метод, що використовується для розрахунку індексу масиву, в який буде покладено елемент
-     */
+
     private int calcIndex(K key){
         return Objects.hashCode(key) & length-1;
     }
 
-    /*
-    Службовий метод, що використовується для додавання елементу мапи, без перевірки на дублювання ключів
-     */
+
     private void addNode(Node<K,V> node){
         int index = calcIndex(node.key);
         if (array[index] == null){
@@ -76,10 +70,7 @@ public class MyHashMap <K, V> {
 
     }
 
-    /*
-    Службовий метод, що використовується для пошуку елементу мапи за ключем, якщо елементу
-    з відповідним ключем в мапі немає, буде повернено null
-     */
+
     private Node <K,V> getNode(K key){
         int index = calcIndex(key);
         if (array[index] != null){
@@ -95,17 +86,13 @@ public class MyHashMap <K, V> {
         return null;
     }
 
-    /*
-    Метод для додавання елементів в мапу
-     */
+
 
     public void put(K key, V value){
         resize();
         Node <K, V> newElement = new Node<>(key, value);
 
-        /*нода для перевірки чи існує в мапі елемент з ідентичним ключем, посилається на елемент мапи,
-        якщо існує і null, якщо ні
-         */
+
         Node <K, V> checkNode = getNode(key);
         if(checkNode != null){// якщо елемент з ідентичним ключем вже міститься, перезаписуємо значення
             checkNode.value = value;
@@ -115,9 +102,7 @@ public class MyHashMap <K, V> {
         size++;
     }
 
-    /*
-    Метод для видалення елементів з мапи
-     */
+
 
     public void remove(K key){
         int index = calcIndex(key);
@@ -141,9 +126,7 @@ public class MyHashMap <K, V> {
 
     }
 
-    /*
-    Метод для очищення мапи
-     */
+
 
     public void clear(){
         length = 16;
@@ -152,17 +135,13 @@ public class MyHashMap <K, V> {
         size = 0;
     }
 
-    /*
-    Метод що повертає розмір мапи
-     */
+
 
     public int size(){
         return size;
     }
 
-    /*
-    Метод для отримання значення за ключем
-     */
+
 
     public V get(K key){
         Node <K, V> desired  = getNode(key);
